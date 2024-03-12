@@ -1,0 +1,50 @@
+<h1>GeekTwitter</h1>
+<h3>habit詳細</h3>
+<div class="habit">
+  <p><%= @habit.about %></p>
+  <p><%= @habit.created_at %></p>
+    <% if user_signed_in? %>
+      <% if current_user.already_liked?(@habit) %>
+        <%= link_to habit_like_path(@habit), method: :delete do %>
+          <p>いいねを取り消す</p><%= @habit.likes.count %>
+        <% end %>
+      <% else %>
+        <%= link_to habit_likes_path(@habit), method: :post do %>
+          <p>いいね</p><%= @habit.likes.count %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>いいねの数 = </p><%= @habit.likes.count %>
+    <% end %>
+    
+    <% if user_signed_in? && current_user.id == @habit.user_id %>
+        <%= link_to "編集する", edit_habit_path(@habit.id) %>
+    <% end %>
+</div>
+
+<h2>いいねしたユーザー</h2>
+<% @habit.liked_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+<div class="comment-wrapper">
+  <p>コメント一覧</p>
+  <% @comments.each do |c| %>
+    <div>
+      <%= c.user.email unless c.user.blank? %>
+      <br>
+      <%= c.content %>
+    </div>
+      <br>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= form_with(model: [@habit, @comment], local: true) do |f| %>
+      <%= f.text_area :content %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<%= link_to "habit一覧に戻る", habits_path %>

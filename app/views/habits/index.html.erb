@@ -1,0 +1,36 @@
+
+
+
+<div class="habits-container">
+  <% @habits.each do |t| %>
+    <div class="habit">
+      <h2>起床時間<%= t.m_time.strftime("%H:%M") %></h2>
+      <h2>就寝時間<%= t.n_time.strftime("%H:%M") %></h2>
+      <h2>タスク<%= t.task %></h2>
+      <h2><%= t.user_id %>
+      <h2>詳細<%= t.about %></h2>
+
+      <%= link_to "詳細へ", habit_path(t.id) %>
+
+      <% if user_signed_in? && current_user.id == t.user_id %>
+      　<%= button_to "削除する", habit_path(t.id), method: :delete %>
+      <% end %> 
+
+      <h2><% if user_signed_in? %>
+          <% if current_user.already_liked?(t) %>
+              <%= link_to habit_like_path(id: t.id, habit_id: t.id), method: :delete do %>
+                  <p>いいねを取り消す</p><%= t.likes.count %>
+              <% end %>
+          <% else %>
+              <%= link_to habit_likes_path(id: t.id, habit_id: t.id), method: :post do %>
+                  <p>いいね</p><%= t.likes.count %>
+              <% end %>
+          <% end %>
+      <% else %>
+          <p>いいねの数 = </p><%= t.likes.count %>
+      <% end %>
+      <h2>
+    </div>
+  <% end %>
+  
+</div>

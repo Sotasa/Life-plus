@@ -1,0 +1,29 @@
+<h1>自分の題名</h1>
+<h3>新規投稿ページ</h3>
+<%= form_for @habit do |f| %>
+
+
+ <div class="field">
+    <%= f.label :起床時間 %>
+    <%= f.time_field :m_time  %>
+ </div>
+
+ <div class="field">
+    <%= f.label :就寝時間 %>
+    <%= f.time_field :n_time %>
+ </div>
+
+ <div class="field">
+    <%= f.label :タスク %>
+    <%= f.text_field :task, :size => 30 %>
+ </div>
+
+  <div class="field">
+    <%= f.label :詳細  %>
+    <%= f.text_area :about, :size => "30x2" %>
+  </div>
+
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", habits_path %>

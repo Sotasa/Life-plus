@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  m_time: 2024-02-15 17:55:48
+  n_time: 2024-02-15 17:55:48
+  about: MyText
+  user_id: 1
+  task: MyString
+
+two:
+  m_time: 2024-02-15 17:55:48
+  n_time: 2024-02-15 17:55:48
+  about: MyText
+  user_id: 1
+  task: MyString
